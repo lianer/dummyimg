@@ -7,6 +7,10 @@ var server = restify.createServer({
 })
 var convert = require('./convert.js')
 
+if(!fs.existsSync(path.join(__dirname, './cache'))){
+	fs.mkdirSync(path.join(__dirname, './cache'))
+}
+
 server.use(restify.queryParser())
 
 server.use(function (req, res, next) {
