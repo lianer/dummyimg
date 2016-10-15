@@ -1,3 +1,3 @@
 export NODE_ENV=production
 export PORT=4006
-pm2 start ./app --name dummyimg
+pm2 start ./app.js --name dummyimg
