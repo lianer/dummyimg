@@ -5,8 +5,10 @@ var express = require('express')
 var router = express.Router()
 var convert = require('../convert.js')
 
-if(!fs.existsSync(path.join(__dirname, './cache'))){
-	fs.mkdirSync(path.join(__dirname, './cache'))
+var CACHE_ROOT = path.join(__dirname, '../cache')
+
+if(!fs.existsSync(CACHE_ROOT)){
+	fs.mkdirSync(CACHE_ROOT)
 }
 
 /* GET home page. */
@@ -30,10 +32,9 @@ router.get(/^\/(?:(\d{1,4})x(\d{1,4}))\/?/i, function (req, res, next) {
 	var bg = req.query.bg || 'ccc'
 	var fg = req.query.fg || '666'
 
-	var outputPath = path.join(__dirname, `../cache/${width}x${height}_${bg}_${fg}.png`)
+	var outputPath = path.join(CACHE_ROOT, `${width}x${height}_${bg}_${fg}.png`)
 
 	fs.exists(outputPath, function (exists) {
-		console.log(exists);
 		if (exists) {
 			res.header('Content-Type', 'image/png')
 			fs.createReadStream(outputPath).pipe(res)
