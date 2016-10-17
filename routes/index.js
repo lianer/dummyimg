@@ -33,6 +33,7 @@ router.get(/^\/(?:(\d{1,4})x(\d{1,4}))\/?/i, function (req, res, next) {
 	var outputPath = path.join(__dirname, `../cache/${width}x${height}_${bg}_${fg}.png`)
 
 	fs.exists(outputPath, function (exists) {
+		console.log(exists);
 		if (exists) {
 			res.header('Content-Type', 'image/png')
 			fs.createReadStream(outputPath).pipe(res)
