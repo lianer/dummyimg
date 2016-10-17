@@ -12,6 +12,7 @@ if(!fs.existsSync(path.join(__dirname, './cache'))){
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var host = 'http://' + req.headers['host']
+	console.log(host);
 	fs.readFile(path.join(__dirname, '../views/index.html'), function (err, content) {
 		var transfer = content.toString().split("http://fed.guahao-inc.com/dummyimg").join(host)
 		res.header('Content-Type', 'text/html')
