@@ -3,5 +3,5 @@
 http://fed.guahao-inc.com/dummyimg/${1:80}x${2:80}
 ]]></content>
 	<tabTrigger>dimg</tabTrigger>
-	<scope>*</scope>
+	<scope></scope>
 </snippet>
