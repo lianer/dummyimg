@@ -12,7 +12,6 @@ if(!fs.existsSync(path.join(__dirname, './cache'))){
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var host = 'http://' + req.headers['host']
-	console.log(host);
 	fs.readFile(path.join(__dirname, '../views/index.html'), function (err, content) {
 		var transfer = content.toString().split("http://fed.guahao-inc.com/dummyimg").join(host)
 		res.header('Content-Type', 'text/html')
@@ -31,7 +30,7 @@ router.get(/^\/(?:(\d{1,4})x(\d{1,4}))\/?/i, function (req, res, next) {
 	var bg = req.query.bg || 'ccc'
 	var fg = req.query.fg || '666'
 
-	var outputPath = path.join(__dirname, `./cache/${width}x${height}_${bg}_${fg}.png`)
+	var outputPath = path.join(__dirname, `../cache/${width}x${height}_${bg}_${fg}.png`)
 
 	fs.exists(outputPath, function (exists) {
 		if (exists) {
