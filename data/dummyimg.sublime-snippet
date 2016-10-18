@@ -1,6 +1,6 @@
 <snippet>
 	<content><![CDATA[
-http://fed.guahao-inc.com/dummyimg/${1:80}x${2:80}
+http://dummyimg.fed.guahao-inc.com/${1:80}x${2:80}
 ]]></content>
 	<tabTrigger>dimg</tabTrigger>
 	<scope></scope>
