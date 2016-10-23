@@ -3,7 +3,7 @@ var path = require('path')
 var util = require('util')
 var express = require('express')
 var router = express.Router()
-var convert = require('../convert.js')
+var convert = require('../lib/convert.js')
 
 var CACHE_ROOT = path.join(__dirname, '../cache')
 
@@ -32,9 +32,11 @@ router.get(/^\/(?:(\d{1,4})x(\d{1,4}))\/?/i, function (req, res, next) {
 	var bg = req.query.bg || 'ccc'
 	var fg = req.query.fg || '666'
 
+	// 目标文件位置
 	var outputPath = path.join(CACHE_ROOT, `${width}x${height}_${bg}_${fg}.png`)
 
 	fs.exists(outputPath, function (exists) {
+		// 如果已经存在该文件，则直接响应文件
 		if (exists) {
 			res.header('Content-Type', 'image/png')
 			fs.createReadStream(outputPath).pipe(res)
@@ -42,9 +44,11 @@ router.get(/^\/(?:(\d{1,4})x(\d{1,4}))\/?/i, function (req, res, next) {
 		}
 		convert(width, height, bg, fg, function (err, stdout, stderr, command) {
 			if(err){
+				console.log(err)
 				return next(err)
 			}
 
+			// 写入文件到目标位置
 			var cacheStream = fs.createWriteStream(outputPath)
 			stdout.pipe(cacheStream)
 

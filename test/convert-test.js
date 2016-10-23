@@ -1,5 +1,9 @@
 var fs = require('fs')
-var gm = require('gm').subClass({imageMagick: true})
+var path = require('path')
+var gm = require('gm').subClass({
+	imageMagick: true,
+	appPath: 'D:/ImageMagick-7.0.3-Q16/',
+})
 
 var width = 750
 var height = 88
@@ -39,36 +43,22 @@ gm(width, height, '#ccc')
 	// 描边
 	.stroke("#666")
 	// 字体字号
-	.font("../data/font/mplus-1c-light.ttf")
+	.font(path.join(__dirname, "../data/font/mplus-1c-light.ttf"))
 	// 绘制文字
 	.drawText(0, 0, `${width}X${height}`)
 	// 写入文件
-	// .write('a.png', function (err, stdout, stderr, command) {
-	// 	if(err){
-	// 		throw err
-	// 		return
-	// 	}
-	// 	console.log(command)
-	// })
-	// 创建流
-	.stream('png', function (err, stdout, stderr) {
+	.write('a.png', function (err, stdout, stderr, command) {
 		if(err){
 			throw err
-			return
 		}
-		var writeStream = fs.createWriteStream('a.png')
-		stdout.pipe(writeStream)
-		stderr.pipe(process.stdout)
+		console.log(command)
 	})
-
-function getFormat(f) {
-	switch (f) {
-		case '.jpg': return 'jpeg'
-		case '.gif': return 'gif'
-		default: return 'png'
-	}
-}
-
-setTimeout(function () {
-	process.exit()
-}, 5000)
+	// 创建流
+	// .stream('png', function (err, stdout, stderr) {
+	// 	if(err){
+	// 		throw err
+	// 	}
+	// 	var writeStream = fs.createWriteStream('a.png')
+	// 	stdout.pipe(writeStream)
+	// 	stderr.pipe(process.stdout)
+	// })
