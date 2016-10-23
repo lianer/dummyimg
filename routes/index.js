@@ -22,8 +22,12 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/snippet', function (req, res, next) {
-	res.attachment('dummyimg.sublime-snippet')
-	fs.createReadStream(path.join(__dirname, '../data/dummyimg.sublime-snippet')).pipe(res)
+	var host = 'http://' + req.headers['host']
+	fs.readFile(path.join(__dirname, '../data/dummyimg.sublime-snippet'), function (err, content) {
+		var transfer = content.toString().split("${host}").join(host)
+		res.attachment('dummyimg.sublime-snippet')
+		res.send(transfer)
+	})
 })
 
 router.get(/^\/(?:(\d{1,4})x(\d{1,4}))\/?/i, function (req, res, next) {
